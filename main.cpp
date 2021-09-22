@@ -14,6 +14,7 @@
  * machine.
  */
 #include "catch_setup.h"
+#include "DSVector.h"
 
 int main(int argc, char** argv) {
     if(argc == 1) {
@@ -25,6 +26,7 @@ int main(int argc, char** argv) {
         std::ofstream o(argv[2]);
         o << "Writing to output file." << std::endl;
         o.close();
+        DSVector <int> test;
     }
     return 0;
 }
