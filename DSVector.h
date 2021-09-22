@@ -34,7 +34,6 @@ public:
             this->size = copy.size;
             this->curr = copy.curr;
         }
-        return *this;
     }
 
     DSVector& operator= (const DSVector& copy){
