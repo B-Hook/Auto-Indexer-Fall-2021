@@ -27,6 +27,7 @@ int main(int argc, char** argv) {
         o << "Writing to output file." << std::endl;
         o.close();
         DSVector <int> test;
+        DSVector <int> test2;
         for (int i = 0; i < 15; i++)
             test.push_back(i);
         for (int i = 0; i < test.getSize(); i++)
@@ -40,6 +41,19 @@ int main(int argc, char** argv) {
         std::cout << test.getCapacity() << std::endl;
 
         std::cout << test.search(12) << std::endl;
+        std::cout << std::endl;
+
+        for (int i = 0; i < 30; i++)
+            test2.push_back(i*2);
+
+        test = test2;
+
+        for (int i = 0; i < test.getSize(); i++)
+            std::cout << test.at(i) << std::endl;
+        std::cout << test.getSize() << std::endl;
+        std::cout << test.getCapacity() << std::endl;
     }
+
+
     return 0;
 }
