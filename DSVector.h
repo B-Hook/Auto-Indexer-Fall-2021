@@ -72,7 +72,7 @@ public:
         T* temp = new T [size];
         int tempCount = 0;
 
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < curr; i++){
             if (i != index){
                 temp[tempCount] = this->data[i];
                 tempCount++;
