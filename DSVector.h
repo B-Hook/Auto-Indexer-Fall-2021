@@ -28,20 +28,20 @@ public:
     }
 
     DSVector (const DSVector& copy){
-        if (this->data != copy.data) {
+        //if (this->data != copy.data) {
             this->data = new T[copy.getSize()];
-            for (int i = 0; i < copy.size; i++)
+            for (int i = 0; i < copy.curr; i++)
                 this->data[i] = copy.data[i];
             this->size = copy.size;
             this->curr = copy.curr;
-        }
+        //}
     }
 
     DSVector& operator= (const DSVector& copy){
         if (this->data != copy.data) {
             delete[] this->data;
             this->data = new T[copy.size];
-            for (int i = 0; i < copy.size; i++)
+            for (int i = 0; i < copy.curr; i++)
                 this->data[i] = copy.data[i];
             this->size = copy.size;
             this->curr = copy.curr;
@@ -57,7 +57,7 @@ public:
 
         if (curr == size){
             T* temp = new T [2 * size];
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < curr; i++)
                 temp[i] = this->data[i];
             delete[] this->data;
             size *= 2;
