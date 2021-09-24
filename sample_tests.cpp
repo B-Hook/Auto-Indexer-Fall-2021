@@ -36,10 +36,10 @@ TEST_CASE("Testing DSVector") {
         REQUIRE (vector1.getSize() == vectorString.getSize());
         DSVector<DSVector<DSString>> vector2 = vectorInVector;
         REQUIRE (vector2.getSize() == vectorInVector.getSize());
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 15; i++)
             vectorInt.push_back(i);
         DSVector<int> vector3 = vectorInt;
-        REQUIRE (vector3.at(9) == vectorInt.at(9));
+        REQUIRE (vector3.at(13) == vectorInt.at(13));
     }
 
 }
