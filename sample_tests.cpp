@@ -33,13 +33,13 @@ TEST_CASE("Testing DSVector") {
 
     SECTION("Testing copy constructor"){
         DSVector<DSString> vector1 = vectorString;
-        CHECK (vector1.getSize() == vectorString.getSize());
+        REQUIRE (vector1.getSize() == vectorString.getSize());
         DSVector<DSVector<DSString>> vector2 = vectorInVector;
-        CHECK (vector2.getSize() == vectorInVector.getSize());
-        for (int i = 0; i < 15; i++)
+        REQUIRE (vector2.getSize() == vectorInVector.getSize());
+        for (int i = 0; i < 9; i++)
             vectorInt.push_back(i);
         DSVector<int> vector3 = vectorInt;
-        CHECK (vector3.at(13) == vectorInt.at(13));
+        REQUIRE (vector3.at(9) == vectorInt.at(9));
     }
 
 }
