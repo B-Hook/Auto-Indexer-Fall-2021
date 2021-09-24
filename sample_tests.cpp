@@ -15,16 +15,36 @@
 
 #include "catch.hpp"
 #include "DSString.h"
+#include "DSVector.h"
+#include <iomanip>
+#include <map>
 
 TEST_CASE("Testing Tests", "[multiplication]") {
     REQUIRE((2 * 2) == 4);
     REQUIRE((1 * 5) == 5);
 }
 
+TEST_CASE("Testing DSVector") {
 
+    DSVector<DSString> vectorString;
+    DSVector<int> vectorInt;
+    DSVector<std::map <DSString, int>> vectorMap;
+    DSVector<DSVector<DSString>> vectorInVector;
 
-TEST_CASE("Testing DSString")
-{
+    SECTION("Testing copy constructor"){
+        DSVector<DSString> vector1 = vectorString;
+        CHECK (vector1.getSize() == vectorString.getSize());
+        DSVector<DSVector<DSString>> vector2 = vectorInVector;
+        CHECK (vector2.getSize() == vectorInVector.getSize());
+        for (int i = 0; i < 15; i++)
+            vectorInt.push_back(i);
+        DSVector<int> vector3 = vectorInt;
+        CHECK (vector3.at(13) == vectorInt.at(13));
+    }
+
+}
+
+TEST_CASE("Testing DSString") {
     DSString a = "1";
     DSString b = "Ten Char10";
     DSString c = "Multiple words/Actual Tweet";

@@ -95,8 +95,8 @@ public:
 
     T at (const int index){ return this->data[index]; }
 
-    int getSize (){ return curr; }
-    int getCapacity () { return size; }
+    int getSize () const { return curr; }
+    int getCapacity () const { return size; }
 };
 
 #endif //INC_21F_PA02_DSVECTOR_H
