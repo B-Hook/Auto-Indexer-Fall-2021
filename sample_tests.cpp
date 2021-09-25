@@ -1,18 +1,3 @@
-//
-// Created by MARK FONTENOT on 9/14/21.
-//
-
-/**
- * This file contains some simple tests.
- *
- * DO NOT add the #define CATCH_CONFIG_RUNNER to this file.
- * It is already in catch_setup.cpp
- *
- * Note that you can have more than one cpp file with tests in them.
- * For example, you could have a test file for your DSString and a
- * separate one for your DSVector.
- */
-
 #include "catch.hpp"
 #include "DSString.h"
 #include "DSVector.h"
@@ -123,6 +108,38 @@ TEST_CASE("Testing DSVector") {
         REQUIRE(vectorString.at(1) == "a");
         REQUIRE(vectorInt.at(12) == 12);
         REQUIRE(vectorInVector.at(0) == vectorString);
+    }
+    SECTION("Testing sort function"){
+        DSVector <int> sortV;
+        sortV.push_back(23);
+        sortV.push_back(10);
+        sortV.push_back(1);
+        sortV.push_back(25);
+        sortV.push_back(15);
+        sortV.sort();
+        REQUIRE(sortV.at(0) == 1);
+        REQUIRE(sortV.at(1) == 10);
+        REQUIRE(sortV.at(2) == 15);
+        REQUIRE(sortV.at(3) == 23);
+        REQUIRE(sortV.at(4) == 25);
+
+        DSVector <DSString> sortV1;
+        DSString a = "alpha";
+        DSString b = "alphabet";
+        DSString c = "angry";
+        DSString d = "friend";
+        DSString e = "/";
+        sortV1.push_back(c);
+        sortV1.push_back(e);
+        sortV1.push_back(a);
+        sortV1.push_back(d);
+        sortV1.push_back(b);
+        sortV1.sort();
+        REQUIRE(sortV1.at(0) == e);
+        REQUIRE(sortV1.at(1) == a);
+        REQUIRE(sortV1.at(2) == b);
+        REQUIRE(sortV1.at(3) == c);
+        REQUIRE(sortV1.at(4) == d);
     }
     SECTION("Testing getSize function"){
         REQUIRE(vectorString.getSize() == 3);

@@ -112,6 +112,26 @@ public:
 
     T at (const int index){ return this->data[index]; }
 
+    void sort() {
+        int i;
+        int j;
+        int indexSmallest;
+        T temp;
+        //if (curr > 0) {
+            for (i = 0; i < curr - 1; ++i) {
+                indexSmallest = i;
+                for (j = i + 1; j < curr; ++j) {
+                    if (this->data[j] < this->data[indexSmallest]) {
+                        indexSmallest = j;
+                    }
+                }
+                temp = this->data[i];
+                this->data[i] = this->data[indexSmallest];
+                this->data[indexSmallest] = temp;
+            }
+        //}
+    }
+
     int getSize () const { return curr; }
     int getCapacity () const { return size; }
 };
