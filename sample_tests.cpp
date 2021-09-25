@@ -41,6 +41,7 @@ TEST_CASE("Testing DSVector") {
         vectorMap.push_back(map1);
     DSVector<DSVector<DSString>> vectorInVector;
     vectorInVector.push_back(vectorString);
+    DSVector<DSString> vectorString1;
 
     SECTION("Testing copy constructor"){
         DSVector<DSString> vector1 = vectorString;
@@ -71,6 +72,30 @@ TEST_CASE("Testing DSVector") {
         vector3 = vectorMap;
         REQUIRE (vector3 == vectorMap);
 
+    }
+
+    SECTION("Testing operator=="){
+        DSVector <DSString> testVectorString = vectorString;
+        REQUIRE (testVectorString == vectorString);
+    }
+
+    SECTION("Testing Operator[]"){
+        REQUIRE(vectorString[1] == "a");
+        REQUIRE(vectorInt[4] == 4);
+        REQUIRE(vectorInVector[0] == vectorString);
+    }
+
+    SECTION("Testing push_back function"){
+        DSString a = "Air";
+        DSString b = "Water";
+        DSString c = "Earth";
+        DSString d = "Fire";
+        vectorString1.push_back(a);
+        REQUIRE(vectorString1[0] == a);
+        vectorString1.push_back(b);
+        REQUIRE(vectorString1[1] == b);
+        vectorString1.push_back(c);
+        REQUIRE(vectorString1.at(2) == a);
     }
 
 }
