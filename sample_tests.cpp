@@ -101,7 +101,7 @@ TEST_CASE("Testing DSVector") {
         temp.remove(4);
         REQUIRE(vectorInt[4] != temp[4]);
         REQUIRE(vectorInt.getSize() == 15);
-        REQUIRE(vectorInt[4] == temp[5]);
+        REQUIRE(vectorInt[4] == temp[3]);
     }
     SECTION("Testing search function"){
         DSString a = "Baseball";
