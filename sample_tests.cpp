@@ -27,19 +27,49 @@ TEST_CASE("Testing Tests", "[multiplication]") {
 TEST_CASE("Testing DSVector") {
 
     DSVector<DSString> vectorString;
+    DSString a = "a";
+    vectorString.push_back(a);
+    vectorString.push_back(a);
+    vectorString.push_back(a);
     DSVector<int> vectorInt;
+    for (int i = 0; i < 15; i++)
+        vectorInt.push_back(i);
     DSVector<std::map <DSString, int>> vectorMap;
+    std::map <DSString, int> map1;
+    for (int i = 0; i < 5; i++)
+        vectorMap.push_back(map1);
     DSVector<DSVector<DSString>> vectorInVector;
+    vectorInVector.push_back(vectorString);
 
     SECTION("Testing copy constructor"){
         DSVector<DSString> vector1 = vectorString;
         REQUIRE (vector1.getSize() == vectorString.getSize());
         DSVector<DSVector<DSString>> vector2 = vectorInVector;
         REQUIRE (vector2.getSize() == vectorInVector.getSize());
-        for (int i = 0; i < 15; i++)
-            vectorInt.push_back(i);
         DSVector<int> vector3 = vectorInt;
         REQUIRE (vector3.at(13) == vectorInt.at(13));
+    }
+
+    SECTION("Testing Copy Assignment"){
+
+        DSVector<DSString> vector1;
+        vector1.push_back(a);
+        vector1 = vectorString;
+        REQUIRE (vector1 == vectorString);
+
+        DSVector<DSVector<DSString>> vector2;
+        vector2.push_back(vector1);
+        vector2.push_back(vector1);
+        vector2 = vectorInVector;
+        REQUIRE (vector2 == vectorInVector);
+
+        DSVector<std::map <DSString, int>> vector3;
+        std::map <DSString, int> map2;
+        vector3.push_back(map2);
+        vector3 = vectorMap;
+        REQUIRE (vector3 == vectorMap);
+
+
     }
 
 }

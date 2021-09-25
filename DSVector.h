@@ -49,7 +49,25 @@ public:
         return *this;
     }
 
-    T& operator[](const int index) {
+    bool operator==(const DSVector &passedVector) const{
+        // Compares the data to the passed object's data
+        int count = 0;
+        if ((this->curr == passedVector.curr) && (this->size == passedVector.size)) {
+            for (int i = 0; i < this->curr; i++) {
+                if (this[i] != passedVector[i])
+                    count++;
+            }
+        }
+        else{
+            count++;
+        }
+        if (count == 0)
+            return true;
+        else
+            return false;
+    }
+
+    T& operator[](const int index) const{
         return this->data[index];
     }
 
