@@ -94,8 +94,6 @@ TEST_CASE("Testing DSVector") {
         REQUIRE(vectorString1[0] == a);
         vectorString1.push_back(b);
         REQUIRE(vectorString1[1] == b);
-        vectorString1.push_back(c);
-        REQUIRE(vectorString1.at(2) == a);
     }
 
 }
