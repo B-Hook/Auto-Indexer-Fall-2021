@@ -47,11 +47,12 @@ int main(int argc, char** argv) {
             test2.push_back(i*2);
 
         test = test2;
+        test2 = test;
 
         for (int i = 0; i < test.getSize(); i++)
-            std::cout << test.at(i) << std::endl;
-        std::cout << test.getSize() << std::endl;
-        std::cout << test.getCapacity() << std::endl;
+            std::cout << test2.at(i) << std::endl;
+        std::cout << test2.getSize() << std::endl;
+        std::cout << test2.getCapacity() << std::endl;
     }
 
 

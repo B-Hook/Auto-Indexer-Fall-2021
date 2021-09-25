@@ -53,7 +53,7 @@ public:
         int count = 0;
         if ((this->curr == passedVector.curr) && (this->size == passedVector.size)) {
             for (int i = 0; i < this->curr; i++) {
-                if (this->data[i] == passedVector[i]){ }
+                if (this->data[i] == passedVector.data[i]){ }
                 else{ count++; }
             }
         }
