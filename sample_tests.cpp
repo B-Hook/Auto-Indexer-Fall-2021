@@ -42,6 +42,7 @@ TEST_CASE("Testing DSVector") {
     DSVector<DSVector<DSString>> vectorInVector;
     vectorInVector.push_back(vectorString);
     DSVector<DSString> vectorString1;
+    DSVector<DSVector<int>> vectorInVectorInt;
 
     SECTION("Testing copy constructor"){
         DSVector<DSString> vector1 = vectorString;
@@ -88,14 +89,57 @@ TEST_CASE("Testing DSVector") {
     SECTION("Testing push_back function"){
         DSString a = "Air";
         DSString b = "Water";
-        DSString c = "Earth";
-        DSString d = "Fire";
         vectorString1.push_back(a);
         REQUIRE(vectorString1[0] == a);
         vectorString1.push_back(b);
         REQUIRE(vectorString1[1] == b);
+        vectorInVectorInt.push_back(vectorInt);
+        REQUIRE(vectorInVectorInt[0] == vectorInt);
     }
-
+    SECTION("Testing remove function"){
+        DSVector<int> temp = vectorInt;
+        temp.remove(4);
+        REQUIRE(vectorInt[4] != temp[4]);
+        REQUIRE(vectorInt.getSize() == 14);
+        REQUIRE(vectorInt[4] == temp[5]);
+    }
+    SECTION("Testing search function"){
+        DSString a = "Baseball";
+        DSString b = "Football";
+        DSString c = "SMU";
+        DSString d = "TCU";
+        vectorString1.push_back(a);
+        vectorString1.push_back(b);
+        vectorString1.push_back(c);
+        vectorString1.push_back(d);
+        REQUIRE(vectorString1.search("Baseball") == 0);
+        REQUIRE(vectorString1.search("Football") == 1);
+        REQUIRE(vectorString1.search("SMU") == 2);
+        REQUIRE(vectorString1.search("TCU") == 3);
+        REQUIRE(vectorInt.search(13) == 13);
+        REQUIRE(vectorInVector.search(vectorString) == 0);
+    }
+    SECTION("Testing at function"){
+        REQUIRE(vectorString.at(1) == "a");
+        REQUIRE(vectorInt.at(12) == 12);
+        REQUIRE(vectorInVector.at(0) == vectorString);
+    }
+    SECTION("Testing getSize function"){
+        REQUIRE(vectorString.getSize() == 3);
+        REQUIRE(vectorInt.getSize() == 15);
+        REQUIRE(vectorMap.getSize() == 5);
+        REQUIRE(vectorInVector.getSize() == 1);
+        REQUIRE(vectorString1.getSize() == 0);
+        REQUIRE(vectorInVectorInt.getSize() == 0);
+    }
+    SECTION("Testing getCapacity function"){
+        REQUIRE(vectorString.getCapacity() == 10);
+        REQUIRE(vectorInt.getCapacity() == 20);
+        REQUIRE(vectorMap.getCapacity() == 10);
+        REQUIRE(vectorInVector.getCapacity() == 10);
+        REQUIRE(vectorString1.getCapacity() == 10);
+        REQUIRE(vectorInVectorInt.getCapacity() == 10);
+    }
 }
 
 TEST_CASE("Testing DSString") {
