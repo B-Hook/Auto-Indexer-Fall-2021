@@ -7,6 +7,8 @@
 #include <fstream>
 #include "DSString.h"
 #include "DSVector.h"
+//#include <iomanip>
+#include <map>
 #include "StoredIndex.h"
 #include "Word.h"
 using namespace std;
