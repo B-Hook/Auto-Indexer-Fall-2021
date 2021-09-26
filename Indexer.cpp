@@ -37,15 +37,48 @@ void Indexer::readInFile(char *input) {
         else{
             for (int i = 0; i < strlen(char1); i++){
 
-                if (char1[i] == '['){
+                //if (char1[i] == '[')
+                    //i++;
+
+                if ((char1[i] == '[') || (countW != 0)){
                     char word1[85];
-                    i++;
+                    if (char1[i] == '[')
+                        i++;
+                    //i++;
                     for (;i < strlen(char1); i++){
-                        if ((char1[i] != '[') && (char1[i] != ']')){
+                        if ((char1[i] == '[') || (countN != 0)){
+                            char nested1[85];
+                            if (char1[i] == '[')
+                                i++;
+                            //i++;
+                            for (; i < strlen(char1); i++){
+                                if(char1[i] != ']'){
+                                    nested1[countN] = char1[i];
+                                    word1[countW] = char1[i];
+                                    countN++;
+                                    countW++;
+                                    //i++;
+                                    //j++;
+                                }
+                                else if (char1[i] == ']'){
+                                    //obj1(nested1, pageNumObj)
+                                    nested1[countN] = '\0';
+                                    cout << nested1 << endl;
+                                    memset(nested1, 0, strlen(char1));
+                                    countN = 0;
+                                    //i++;
+                                    //j++;
+                                    break;
+                                }
+
+                            }
+
+                        }
+                        /*else if ((char1[i] != '[') && (char1[i] != ']')){
                             word1[countW] = char1[i];
                             countW++;
                             //i++;
-                        }
+                        }*/
 
                         else if (char1[i] == ']'){
                             word1[countW] = '\0';
@@ -56,7 +89,12 @@ void Indexer::readInFile(char *input) {
                             //i++;
                             break;
                         }
-                        else if (char1[i] == '['){
+                        else {
+                            word1[countW] = char1[i];
+                            countW++;
+                        }
+                            //i++;
+                        /*else if ((char1[i] == '[') || (countN != 0)){
                             char nested1[85];
                             i++;
                             for (; i < strlen(char1); i++){
@@ -81,7 +119,7 @@ void Indexer::readInFile(char *input) {
 
                             }
 
-                        }
+                        }*/
 
                     }
 
