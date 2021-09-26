@@ -6,7 +6,21 @@
 #define INC_21F_PA02_WORD_H
 
 
+#include "DSString.h"
+#include "DSVector.h"
+
 class Word {
+
+public:
+    Word ();
+    Word (const DSString&, const DSString&);
+    void addPageNum (const DSString&);
+    DSVector <DSString> getPageNum ();
+    DSString getIndexedWord ();
+
+private:
+    DSString indexedWord;
+    DSVector <DSString> pageNum;
 
 };
 
