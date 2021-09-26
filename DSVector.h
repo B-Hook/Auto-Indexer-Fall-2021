@@ -28,13 +28,11 @@ public:
     }
 
     DSVector (const DSVector& copy){
-        //if (this->data != copy.data) {
             this->data = new T[copy.getSize()];
             for (int i = 0; i < copy.curr; i++)
                 this->data[i] = copy.data[i];
             this->size = copy.size;
             this->curr = copy.curr;
-        //}
     }
 
     DSVector& operator= (const DSVector& copy){

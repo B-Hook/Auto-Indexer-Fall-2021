@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "Indexer.h"
 
 /**
  * catch_setup.h and catch_setup.cpp contain the #define directive for
@@ -21,7 +22,10 @@ int main(int argc, char** argv) {
         runCatchTests();
     }
     else {
-        std::cout << "Hello, 2341 students!" << std::endl;
+
+        Indexer(argv[1], argv[2]);
+
+        /*std::cout << "Hello, 2341 students!" << std::endl;
         std::cout << "Attempting to open and write to " << argv[2] << std::endl;
         std::ofstream o(argv[2]);
         o << "Writing to output file." << std::endl;
@@ -52,7 +56,7 @@ int main(int argc, char** argv) {
         for (int i = 0; i < test.getSize(); i++)
             std::cout << test2.at(i) << std::endl;
         std::cout << test2.getSize() << std::endl;
-        std::cout << test2.getCapacity() << std::endl;
+        std::cout << test2.getCapacity() << std::endl;*/
     }
 
 
