@@ -37,7 +37,8 @@ public:
 
     DSVector& operator= (const DSVector& copy){
         if (this->data != copy.data) {
-            delete[] this->data;
+            //if(curr > 0)
+                delete[] this->data;
             this->data = new T[copy.size];
             for (int i = 0; i < copy.curr; i++)
                 this->data[i] = copy.data[i];

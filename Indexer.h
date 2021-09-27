@@ -19,6 +19,7 @@ public:
     Indexer(char*, char*);
     void readInFile (char*);
 
+
 };
 
 
