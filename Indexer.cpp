@@ -9,6 +9,9 @@ void Indexer::readInFile(char *input) {
     DSVector<Word> allWords;
     DSVector<DSString> indexCategories;
     DSVector<DSString> words;
+    //map<DSString, DSVector<DSString>> indexMap;
+    //map<DSString, DSVector<DSString>> wordsMap;
+    //map<DSString, DSVector<DSString>> pageNumMap;
     int countW = 0;
     int countN = 0;
     //char char1[85];
