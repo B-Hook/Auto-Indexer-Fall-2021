@@ -40,7 +40,8 @@ void Indexer::readInFile(char *input) {
                 break;
             i++;
         }
-        else{
+        else if (inputString [i] == '['){
+            int check = 0;
             for (; i < inputString.getLength(); i++){
 
                 if (inputString[i] == '['){
@@ -69,12 +70,16 @@ void Indexer::readInFile(char *input) {
                             }
                             temp[tempCount] = '\0';
                             DSString wordL1(temp);
+
+                            DSString indexL1(wordL1.substring(0, 1));
+
                             //word1[countW] = '\0';
-                            cout << wordL1 << endl;
+                            cout << wordL1 << " : " << pageNumObj << endl;
                             //memset(word1, 0, strlen(char1));
                             //obj1(word1, pageNumObj)
                             countW = 0;
                             //i++;
+                            check = 1;
                             break;
                         }
                         else if (inputString[i] == '['){
@@ -106,12 +111,13 @@ void Indexer::readInFile(char *input) {
                                     }
                                     temp[tempCount] = '\0';
                                     DSString wordL2(temp);
+                                    DSString indexL1(wordL2.substring(0, 1));
 
 
                                     //countN++;
                                     //DSString wordL2(inputString.substring(startL2, countN));
                                     //nested1[countN] = '\0';
-                                    cout << wordL2 << endl;
+                                    cout << wordL2 << " : " << pageNumObj << endl;
                                     //memset(nested1, 0, strlen(char1));
                                     countN = 0;
                                     countW++;
@@ -127,18 +133,13 @@ void Indexer::readInFile(char *input) {
                     }
 
                 }
-
-
+                if (check == 1)
+                    break;
 
             }
 
 
-
-
         }
-
-
-
 
     }
     for (int i = 0; i < pageNumV.getSize(); i++)
