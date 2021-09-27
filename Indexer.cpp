@@ -87,10 +87,25 @@ void Indexer::readInFile(char *input) {
                             Word completeIndex (wordL1, pageNumObj, indexL1);
 
                             allWords.push_back(completeIndex);
-                            indexCategories.push_back(indexL1);
-                            indexCategories.sort();
-                            words.push_back(wordL1);
-                            words.sort();
+                            int check = 0;
+                            for (int j = 0; j < indexCategories.getSize(); j++){
+                                if (indexL1 == indexCategories.at(j))
+                                    check = 1;
+                            }
+                            if (check == 0) {
+                                indexCategories.push_back(indexL1);
+                                indexCategories.sort();
+                            }
+
+                            int check1 = 0;
+                            for (int j = 0; j < words.getSize(); j++){
+                                if (wordL1 == words.at(j))
+                                    check1 = 1;
+                            }
+                            if (check1 == 0) {
+                                words.push_back(wordL1);
+                                words.sort();
+                            }
                             //word1[countW] = '\0';
                             cout << wordL1 << " : " << pageNumObj << " : " << indexL1 << endl;
                             //memset(word1, 0, strlen(char1));
@@ -144,10 +159,25 @@ void Indexer::readInFile(char *input) {
                                     Word completeIndex (wordL2, pageNumObj, indexL2);
 
                                     allWords.push_back(completeIndex);
-                                    indexCategories.push_back(indexL2);
-                                    indexCategories.sort();
-                                    words.push_back(wordL2);
-                                    words.sort();
+                                    int check = 0;
+                                    for (int j = 0; j < indexCategories.getSize(); j++){
+                                        if (indexL2 == indexCategories.at(j))
+                                            check = 1;
+                                    }
+                                    if (check == 0) {
+                                        indexCategories.push_back(indexL2);
+                                        indexCategories.sort();
+                                    }
+
+                                    int check1 = 0;
+                                    for (int j = 0; j < words.getSize(); j++){
+                                        if (wordL2 == words.at(j))
+                                            check1 = 1;
+                                    }
+                                    if (check1 == 0) {
+                                        words.push_back(wordL2);
+                                        words.sort();
+                                    }
 
 
                                     //countN++;
