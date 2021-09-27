@@ -6,7 +6,9 @@ Indexer::Indexer(char *inputFile, char *outputFile) {
     readInFile(inputFile);
 }
 void Indexer::readInFile(char *input) {
-
+    DSVector<Word> allWords;
+    DSVector<DSString> indexCategories;
+    DSVector<DSString> words;
     int countW = 0;
     int countN = 0;
     //char char1[85];
@@ -82,8 +84,13 @@ void Indexer::readInFile(char *input) {
                             DSString indexL1(indexBuffer);
                             //DSString indexL1(wordL1.substring(0, 1));
 
+                            Word completeIndex (wordL1, pageNumObj, indexL1);
 
-
+                            allWords.push_back(completeIndex);
+                            indexCategories.push_back(indexL1);
+                            indexCategories.sort();
+                            words.push_back(wordL1);
+                            words.sort();
                             //word1[countW] = '\0';
                             cout << wordL1 << " : " << pageNumObj << " : " << indexL1 << endl;
                             //memset(word1, 0, strlen(char1));
@@ -134,6 +141,14 @@ void Indexer::readInFile(char *input) {
                                     DSString indexL2(indexBuffer);
                                     //DSString indexL1(wordL2.substring(0, 1));
 
+                                    Word completeIndex (wordL2, pageNumObj, indexL2);
+
+                                    allWords.push_back(completeIndex);
+                                    indexCategories.push_back(indexL2);
+                                    indexCategories.sort();
+                                    words.push_back(wordL2);
+                                    words.sort();
+
 
                                     //countN++;
                                     //DSString wordL2(inputString.substring(startL2, countN));
@@ -163,8 +178,45 @@ void Indexer::readInFile(char *input) {
         }
 
     }
-    for (int i = 0; i < pageNumV.getSize(); i++)
-        cout << pageNumV.at(i) << endl;
+
+    for (int i = 0; i < indexCategories.getSize(); i++){
+        cout << indexCategories.at(i) << endl;
+    }
+
+    cout << endl;
+    cout << endl;
+
+    for (int i = 0; i < words.getSize(); i++){
+        cout << words.at(i) << endl;
+    }
+
+    /*for (int i = 0; i < allWords.getSize(); i++){
+        //for (int j = 0; j < allWords.getSize(); j++){
+        int j = 0;
+        while (allWords.at(j) != nullptr)
+
+            if (allWords.at(i).getIndex() > allWords.at(j).getIndex())
+                break;
+            else if (allWords.at(i).getIndex() == allWords.at(j).getIndex()){
+
+                DSString newPageNum = allWords.at(i).getPageNum();
+
+                if (newPageNum > allWords.at(j).getPageNum()){
+                    newPageNum = newPageNum + ", " + ;
+                }
+
+
+
+                Word newWord;
+            }
+        }
+
+
+
+    }*/
+
+
+
 }
    /*  ifstream inFile(input);
     char temp[85];

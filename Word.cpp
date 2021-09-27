@@ -19,10 +19,14 @@ Word::Word(const DSString& indexedWord, const DSString& pageNum, const DSString&
     this->pageNum.sort();
 }*/
 
+DSString Word::getIndexedWord() {
+    return this->indexedWord;
+}
+
 DSString Word::getPageNum() {
     return this->pageNum;
 }
 
-DSString Word::getIndexedWord() {
-    return this->indexedWord;
+DSString Word::getIndex() {
+    return DSString();
 }
