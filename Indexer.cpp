@@ -40,7 +40,7 @@ void Indexer::readInFile(char *input) {
             pageNumObj = inputString.substring(start, countPageNum);
             if (pageNumObj == "-1")
                 break;
-            i++;
+            //i++;
         }
         else if (inputString [i] == '['){
             int check = 0;
