@@ -6,9 +6,244 @@ Indexer::Indexer(char *inputFile, char *outputFile) {
     readInFile(inputFile);
 }
 void Indexer::readInFile(char *input) {
+
+    int countW = 0;
+    int countN = 0;
+    //char char1[85];
+    //char pageNum[85];
+    DSString pageNumObj;
+    DSString pageNumBuffer;
+    DSVector<DSString> pageNumV;
+    ifstream inFile(input);
+    char temp[85];
+    inFile.getline(temp, 85, '\n');
+    DSString inputString (temp);
+    while (!inFile.eof()) {
+        char buffer[85];
+        inFile.getline(buffer, 85, '\n');
+        inputString = inputString + buffer;
+    }
+
+    for (int i = 0; i < inputString.getLength(); i++){
+        //inFile.getline(char1, 85, '\n');
+        if (inputString[i] == '<') {
+            i++;
+            int start = i;
+            int countPageNum = 0;
+            while (inputString[i] != '>'){
+                countPageNum++;
+                i++;
+            }
+            pageNumBuffer = inputString.substring(start, countPageNum);
+            pageNumObj = pageNumBuffer; //TODO:: Make Object
+            if (pageNumObj == "-1")
+                break;
+            i++;
+        }
+        else{
+            for (; i < inputString.getLength(); i++){
+
+                if (inputString[i] == '['){
+                    //char word1[85];
+                    int startL1 = i;
+                    countW++;
+                    //DSString word1;
+                    i++;
+                    for (;i < inputString.getLength(); i++){
+                        if ((inputString[i] != '[') && (inputString[i] != ']')){
+                            //word1[countW] = [i];
+                            countW++;
+                            //i++;
+                        }
+
+                        else if (inputString[i] == ']'){
+                            countW++;
+                            DSString wordBuffer1(inputString.substring(startL1, countW));
+                            char temp[wordBuffer1.getLength()];
+                            int tempCount = 0;
+                            for (int j = 0; j < wordBuffer1.getLength(); j ++){
+                                if((wordBuffer1[j] != '[') && wordBuffer1[j] != ']'){
+                                    temp[tempCount] = wordBuffer1[j];
+                                    tempCount++;
+                                }
+                            }
+                            temp[tempCount] = '\0';
+                            DSString wordL1(temp);
+                            //word1[countW] = '\0';
+                            cout << wordL1 << endl;
+                            //memset(word1, 0, strlen(char1));
+                            //obj1(word1, pageNumObj)
+                            countW = 0;
+                            //i++;
+                            break;
+                        }
+                        else if (inputString[i] == '['){
+                            //char nested1[85];
+                            int startL2 = i;
+                            countW++;
+                            countN++;
+                            i++;
+                            for (; i < inputString.getLength(); i++){
+                                if(inputString[i] != ']'){
+                                    //nested1[countN] = char1[i];
+                                    //word1[countW] = char1[i];
+                                    countN++;
+                                    countW++;
+                                    //i++;
+                                    //j++;
+                                }
+                                else if (inputString[i] == ']'){
+                                    //obj1(nested1, pageNumObj)
+                                    countN++;
+                                    DSString wordBuffer2(inputString.substring(startL2, countN));
+                                    char temp[wordBuffer2.getLength()];
+                                    int tempCount = 0;
+                                    for (int j = 0; j < wordBuffer2.getLength(); j ++){
+                                        if((wordBuffer2[j] != '[') && wordBuffer2[j] != ']'){
+                                            temp[tempCount] = wordBuffer2[j];
+                                            tempCount++;
+                                        }
+                                    }
+                                    temp[tempCount] = '\0';
+                                    DSString wordL2(temp);
+
+
+                                    //countN++;
+                                    //DSString wordL2(inputString.substring(startL2, countN));
+                                    //nested1[countN] = '\0';
+                                    cout << wordL2 << endl;
+                                    //memset(nested1, 0, strlen(char1));
+                                    countN = 0;
+                                    countW++;
+                                    //i++;
+                                    //j++;
+                                    break;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+    }
+    for (int i = 0; i < pageNumV.getSize(); i++)
+        cout << pageNumV.at(i) << endl;
+}
+   /*  ifstream inFile(input);
+    char temp[85];
+    inFile.getline(temp, 85, '\n');
+    DSString inputString (temp);
+    DSString pageNum;
+    DSString pageNumBuffer;
+    DSVector<DSString> nestedWords;
+    DSVector<DSString> wordsTotal;
+    while (!inFile.eof()) {
+        char buffer[85];
+        inFile.getline(buffer, 85, '\n');
+        inputString = inputString + buffer;
+    }
+
+    for (int i = 0; i < inputString.getLength(); i++){
+
+        if (inputString[i] == '<'){
+            i++;
+            int start = i;
+            int countPageNum = 0;
+            while (inputString[i] != '>'){
+                countPageNum++;
+                i++;
+            }
+            pageNumBuffer = inputString.substring(start, countPageNum);
+            pageNum = pageNumBuffer; //TODO:: Make Object
+            if (pageNum == "-1")
+                break;
+            i++;
+        }
+        else if (inputString[i] == '['){
+            i++;
+            //DSString wordLevel1;
+            int start1 = i;
+            int end1 = 0;
+            int check = 0;
+            while (inputString[i] != ']') {
+                end1++;
+                if (inputString[i] == '[') {
+                    check = 1;
+                    DSString wordLevel1A (inputString.substring(start1, end1 - 1));
+                    i++;
+                    //DSString wordLevel2;
+                    int start2 = i;
+                    int end2 = 0;
+                    while (inputString[i] != ']') {
+                        end2++;
+                        i++;
+                    }
+                    i++;
+                    DSString wordLevel2 (inputString.substring(start2, end2));
+                    wordsTotal.push_back(wordLevel2);
+                    if (end2 >1) {
+                        DSString wordLevel1B(wordLevel1A + wordLevel2);
+                        nestedWords.push_back(wordLevel1B);
+                    }
+                    else {
+                        nestedWords.push_back(wordLevel1A);
+                    }
+                    start1 = i + 1;
+                    end1 = 0;
+                }
+                i++;
+            }
+            if (inputString[i] == ']') {
+                if (check == 0) {
+                    DSString wordLevel1(inputString.substring(start1, end1));
+                    wordsTotal.push_back(wordLevel1);
+                } else {
+                    DSString wordLevel1(nestedWords.at(0));
+                    for (int j = 1; j < nestedWords.getSize(); j++) {
+                        wordLevel1 = wordLevel1 + nestedWords.at(j);
+                    }
+                    DSString wordLevel0(inputString.substring(start1, end1));
+                    wordLevel0 = wordLevel0 + wordLevel1;
+                    wordsTotal.push_back(wordLevel0);
+                }
+                //if (i >= )
+                i++;
+            }
+        }
+
+
+    }
+    for (int i = 0; i < wordsTotal.getSize(); i++){
+        cout << wordsTotal.at(i) << endl;
+    }
+
+
+    //cout << inputString << endl;
+
+
+}*/
+
+
+
+
     //char extendedWord[85];
     //char extendedNested[85];
-    int countW = 0;
+    /*int countW = 0;
     int countN = 0;
     char char1[85];
     char pageNum[85];
@@ -141,4 +376,4 @@ void Indexer::readInFile(char *input) {
     }
     for (int i = 0; i < pageNumV.getSize(); i++)
         cout << pageNumV.at(i) << endl;
-}
+}*/
