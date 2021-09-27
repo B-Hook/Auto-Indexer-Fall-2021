@@ -15,16 +15,17 @@ void Indexer::readInFile(char *input) {
     int countW = 0;
     int countN = 0;
     DSString pageNumObj;
-    DSString pageNumBuffer;
     DSVector<DSString> pageNumV;
     ifstream inFile(input);
-    char temp[85];
-    inFile.getline(temp, 85, '\n');
+    char temp[200];
+    inFile.getline(temp, 200, '\n');
     DSString inputString (temp);
     while (!inFile.eof()) {
-        char buffer[85];
-        inFile.getline(buffer, 85, '\n');
+        char buffer[200];
+        inFile.getline(buffer, 200, '\n');
+        buffer[strlen(buffer)] = '\0';
         inputString = inputString + buffer;
+        memset(buffer, 0, strlen(buffer));
     }
 
     for (int i = 0; i < inputString.getLength(); i++){
@@ -36,8 +37,7 @@ void Indexer::readInFile(char *input) {
                 countPageNum++;
                 i++;
             }
-            pageNumBuffer = inputString.substring(start, countPageNum);
-            pageNumObj = pageNumBuffer; //TODO:: Make Object
+            pageNumObj = inputString.substring(start, countPageNum);
             if (pageNumObj == "-1")
                 break;
             i++;
