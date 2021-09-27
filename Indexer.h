@@ -18,8 +18,6 @@ class Indexer {
 public:
     Indexer(char*, char*);
     void readInFile (char*);
-
-
 };
 
 

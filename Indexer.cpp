@@ -9,9 +9,9 @@ void Indexer::readInFile(char *input) {
     DSVector<Word> allWords;
     DSVector<DSString> indexCategories;
     DSVector<DSString> words;
-    //map<DSString, DSVector<DSString>> indexMap;
-    //map<DSString, DSVector<DSString>> wordsMap;
-    //map<DSString, DSVector<DSString>> pageNumMap;
+    map<DSString, DSVector<DSString>> indexMap;
+    map<DSString, DSVector<DSString>> wordsMap;
+    map<DSString, DSVector<DSString>> pageNumMap;
     int countW = 0;
     int countN = 0;
     //char char1[85];
@@ -78,18 +78,53 @@ void Indexer::readInFile(char *input) {
                             temp[tempCount] = '\0';
                             DSString wordL1(temp);
 
-                            char indexBuffer[2];
+                            /*char indexBuffer[2];
                             indexBuffer[0] = wordL1[0];
                             indexBuffer[0] = toupper(indexBuffer[0]);
-                            indexBuffer[1] = '\0';
+                            indexBuffer[1] = '\0';*/
 
 
                             //DSString indexL1(indexBuffer);
                             DSString indexL1(wordL1.substring(0, 1));
 
+
                             Word completeIndex (wordL1, pageNumObj, indexL1);
 
+                            /*for (int j = 0; j < allWords.getSize(); j++){
+                                if((allWords.at(j).getIndexedWord() == wordL1) &&
+                                    (allWords.at(j).getPageNum() == pageNumObj)){
+
+                                }
+                            }*/
+
                             allWords.push_back(completeIndex);
+                            /*
+                            if (indexMap.count(indexL1) == 0) {
+                                DSVector <DSString> newWord;
+                                newWord.push_back(wordL1);
+                                indexMap.emplace(indexL1, newWord);
+                            }
+                            else {
+                                indexMap.at(indexL1).push_back(wordL1);
+                            }
+                            DSString pageNumB(pageNumObj);
+
+                            if (wordsMap.count(wordL1) == 0) {
+                                DSVector <DSString> newPageNum;
+                                newPageNum.push_back(pageNumObj);
+                                wordsMap.emplace(wordL1, newPageNum);
+                            }
+                            //else if (wordsMap)
+                            else{
+                                int check5 = 0;
+                                for (int j = 0; j < wordsMap.at(wordL1).getSize(); j++){
+                                    if (wordsMap.at(wordL1).at(j) == pageNumObj)
+                                        check5 = 1;
+                                }
+                                if (check5 == 0)
+                                    wordsMap.at(wordL1).push_back(pageNumObj);
+                            }
+                            */
                             int check0 = 0;
                             for (int j = 0; j < indexCategories.getSize(); j++){
                                 if (indexL1 == indexCategories.at(j))
@@ -233,14 +268,25 @@ void Indexer::readInFile(char *input) {
                 if (count0 == 0)
                     cout << "[" << indexCategories.at(i) << "]" << endl;
                 count0++;
+                DSVector <DSString> pageNumV;
                 cout << words.at(j) << ": ";
                 int count = 0;
+                int pageRepeat = 0;
                 for (int k = 0; k < allWords.getSize(); k++){
                     if (words.at(j) == allWords.at(k).getIndexedWord()){
-                        if (count != 0)
-                            cout << ", ";
-                        cout << allWords.at(k).getPageNum();
-                        count++;
+                        for (int l = 0; l < pageNumV.getSize(); l++){
+                            if (pageNumV.at(l) == allWords.at(k).getPageNum()) {
+                                pageRepeat = 1;
+                                break;
+                            }
+                        }
+                        if (pageRepeat == 0) {
+                            if (count != 0)
+                                cout << ", ";
+                            cout << allWords.at(k).getPageNum();
+                            pageNumV.push_back(allWords.at(k).getPageNum());
+                            count++;
+                        }
                     }
                 }
                 cout << endl;
@@ -276,236 +322,3 @@ void Indexer::readInFile(char *input) {
 
 
 }
-   /*  ifstream inFile(input);
-    char temp[85];
-    inFile.getline(temp, 85, '\n');
-    DSString inputString (temp);
-    DSString pageNum;
-    DSString pageNumBuffer;
-    DSVector<DSString> nestedWords;
-    DSVector<DSString> wordsTotal;
-    while (!inFile.eof()) {
-        char buffer[85];
-        inFile.getline(buffer, 85, '\n');
-        inputString = inputString + buffer;
-    }
-
-    for (int i = 0; i < inputString.getLength(); i++){
-
-        if (inputString[i] == '<'){
-            i++;
-            int start = i;
-            int countPageNum = 0;
-            while (inputString[i] != '>'){
-                countPageNum++;
-                i++;
-            }
-            pageNumBuffer = inputString.substring(start, countPageNum);
-            pageNum = pageNumBuffer; //TODO:: Make Object
-            if (pageNum == "-1")
-                break;
-            i++;
-        }
-        else if (inputString[i] == '['){
-            i++;
-            //DSString wordLevel1;
-            int start1 = i;
-            int end1 = 0;
-            int check = 0;
-            while (inputString[i] != ']') {
-                end1++;
-                if (inputString[i] == '[') {
-                    check = 1;
-                    DSString wordLevel1A (inputString.substring(start1, end1 - 1));
-                    i++;
-                    //DSString wordLevel2;
-                    int start2 = i;
-                    int end2 = 0;
-                    while (inputString[i] != ']') {
-                        end2++;
-                        i++;
-                    }
-                    i++;
-                    DSString wordLevel2 (inputString.substring(start2, end2));
-                    wordsTotal.push_back(wordLevel2);
-                    if (end2 >1) {
-                        DSString wordLevel1B(wordLevel1A + wordLevel2);
-                        nestedWords.push_back(wordLevel1B);
-                    }
-                    else {
-                        nestedWords.push_back(wordLevel1A);
-                    }
-                    start1 = i + 1;
-                    end1 = 0;
-                }
-                i++;
-            }
-            if (inputString[i] == ']') {
-                if (check == 0) {
-                    DSString wordLevel1(inputString.substring(start1, end1));
-                    wordsTotal.push_back(wordLevel1);
-                } else {
-                    DSString wordLevel1(nestedWords.at(0));
-                    for (int j = 1; j < nestedWords.getSize(); j++) {
-                        wordLevel1 = wordLevel1 + nestedWords.at(j);
-                    }
-                    DSString wordLevel0(inputString.substring(start1, end1));
-                    wordLevel0 = wordLevel0 + wordLevel1;
-                    wordsTotal.push_back(wordLevel0);
-                }
-                //if (i >= )
-                i++;
-            }
-        }
-
-
-    }
-    for (int i = 0; i < wordsTotal.getSize(); i++){
-        cout << wordsTotal.at(i) << endl;
-    }
-
-
-    //cout << inputString << endl;
-
-
-}*/
-
-
-
-
-    //char extendedWord[85];
-    //char extendedNested[85];
-    /*int countW = 0;
-    int countN = 0;
-    char char1[85];
-    char pageNum[85];
-    map<DSString, DSVector<Word>> mIndex;
-    //DSString pageNumObj;
-    DSVector<DSString> pageNumV;
-    DSVector<DSString> wordV;
-    // DSVector<Word> wordIndex;
-    // DSVector<StoredIndex> index;
-    DSVector<DSString> charIV;
-    int count = 0;
-
-    ifstream inFile(input);
-    while (!inFile.eof()) {
-        inFile.getline(char1, 85, '\n');
-        if (char1[0] == '<') {
-            for (int i = 1; i < strlen(char1) - 1; i++)
-                pageNum[i - 1] = char1[i];
-            pageNum[strlen(char1) - 2] = '\0';
-        } else {
-            DSString pageNumObj(pageNum);
-            for (int i = 0; i < strlen(char1); i++) {
-                if ((char1[i] == '[') || (countW != 0)) {
-                    char word1[85];
-                    if (char1[i] == '[')
-                        i++;
-                    for (; i < strlen(char1); i++) {
-                        if ((char1[i] == '[') || (countN != 0)) {
-                            char nested1[85];
-                            if (char1[i] == '[')
-                                i++;
-                            for (; i < strlen(char1); i++) {
-                                if (char1[i] == ']') {
-                                    nested1[countN] = '\0';
-                                    char char0[2];
-                                    char0[0] = nested1[0];
-                                    char0[1] = '\0';
-                                    if (isalpha(char0[0]))
-                                        char0[0] = toupper(char0[0]);
-                                    DSString charI(char0);
-                                    DSString nested(nested1);
-                                    int check = 0;
-                                    if ((mIndex.count(charI) > 0)) {
-                                        for (int j = 0; j < mIndex.at(charI).getSize(); j++) {
-                                            if (nested == mIndex.at(charI).at(j).getIndexedWord()) {
-                                                mIndex.at(charI).at(j).addPageNum(pageNumObj);
-                                                check = 1;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (check == 0) {
-                                        Word nestedWord(nested, pageNumObj);
-                                        if (mIndex.count(charI) > 0) {
-                                            mIndex.at(charI).push_back(nestedWord);
-                                        }
-                                        else {
-                                            DSVector<Word> nestedIndex;
-                                            nestedIndex.push_back(nestedWord);
-                                            mIndex.emplace(charI, nestedIndex);
-                                            charIV.push_back(charI);
-                                        }
-                                    }
-
-                                    memset(nested1, 0, strlen(char1));
-                                    countN = 0;
-                                    break;
-                                } else {
-                                    nested1[countN] = char1[i];
-                                    word1[countW] = char1[i];
-                                    countN++;
-                                    countW++;
-                                }
-                            }
-                        }
-                        else if (char1[i] == ']') {
-
-                            word1[countW] = '\0';
-                            char char0[2];
-                            char0[0] = word1[0];
-                            char0[1] = '\0';
-                            if (isalpha(char0[0]))
-                                char0[0] = toupper(char0[0]);
-                            DSString charI(char0);
-                            DSString word(word1);
-                            int check = 0;
-                            if ((mIndex.count(charI) > 0)) {
-                                for (int j = 0; j < mIndex.at(charI).getSize(); j++) {
-                                    if (word == mIndex.at(charI).at(j).getIndexedWord()) {
-                                        mIndex.at(charI).at(j).addPageNum(pageNumObj);
-                                        check = 1;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (check == 0) {
-                                Word newWord(word, pageNumObj);
-                                if (mIndex.count(charI) > 0) {
-                                    mIndex.at(charI).push_back(newWord);
-                                }
-                                else {
-                                    DSVector<Word> wordIndex;
-                                    wordIndex.push_back(newWord);
-                                    mIndex.emplace(charI, wordIndex);
-                                    charIV.push_back(charI);
-                                }
-                            }
-                            memset(word1, 0, strlen(char1));
-                            countW = 0;
-                            break;
-                        }
-                        else {
-                            word1[countW] = char1[i];
-                            countW++;
-                        }
-                    }
-                }
-            }
-        }
-
-
-    }
-    for (int i = 0; i < charIV.getSize(); i++) {
-        for (int j = 0; j < mIndex.at(charIV.at(i)).getSize(); j++) {
-            for (int k = 0; k < mIndex.at(charIV.at(i)).at(j).getPageNum().getSize(); k++) {
-                cout << mIndex.at(charIV.at(i)).at(j).getIndexedWord() << " : " <<
-                     mIndex.at(charIV.at(i)).at(j).getPageNum().at(k) << endl;
-            }
-        }
-    }
-    for (int i = 0; i < pageNumV.getSize(); i++)
-        cout << pageNumV.at(i) << endl;
-}*/
