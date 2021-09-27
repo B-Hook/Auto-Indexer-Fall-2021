@@ -73,7 +73,7 @@ public:
 
         if (curr == size){
             T* temp = new T [2 * size];
-            for (int i = 0; i < curr; i++)
+            for (int i = 0; i < this->getSize(); i++)
                 temp[i] = this->data[i];
             delete[] this->data;
             size *= 2;
@@ -88,7 +88,7 @@ public:
         T* temp = new T [size];
         int tempCount = 0;
 
-        for (int i = 0; i < curr; i++){
+        for (int i = 0; i < this->getSize(); i++){
             if (i != index){
                 temp[tempCount] = this->data[i];
                 tempCount++;
@@ -101,7 +101,7 @@ public:
 
     int search (const T element){
         int location = -1;
-        for (int i = 0; i < curr; i++){
+        for (int i = 0; i < this->getSize(); i++){
             if (this->data[i] == element)
                 location = i; //TODO:: will make it return multiple locations if need be later
         }
@@ -117,9 +117,9 @@ public:
         int indexSmallest;
         T temp;
         //if (curr > 0) {
-            for (i = 0; i < curr - 1; ++i) {
+            for (i = 0; i < this->getSize() - 1; ++i) {
                 indexSmallest = i;
-                for (j = i + 1; j < curr; ++j) {
+                for (j = i + 1; j < this->getSize(); ++j) {
                     if (this->data[j] < this->data[indexSmallest]) {
                         indexSmallest = j;
                     }
