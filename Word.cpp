@@ -8,17 +8,18 @@ Word::Word() {
 
 }
 
-Word::Word(const DSString& indexedWord, const DSString& pageNum) {
+Word::Word(const DSString& indexedWord, const DSString& pageNum, const DSString& index) {
     this->indexedWord = indexedWord;
-    this->pageNum.push_back(pageNum);
+    this->pageNum = pageNum;
+    this->index = index;
 }
 
-void Word::addPageNum(const DSString& num){
+/*void Word::addPageNum(const DSString& num){
     this->pageNum.push_back(num);
     this->pageNum.sort();
-}
+}*/
 
-DSVector<DSString> Word::getPageNum() {
+DSString Word::getPageNum() {
     return this->pageNum;
 }
 

@@ -65,16 +65,27 @@ void Indexer::readInFile(char *input) {
                             for (int j = 0; j < wordBuffer1.getLength(); j ++){
                                 if((wordBuffer1[j] != '[') && wordBuffer1[j] != ']'){
                                     temp[tempCount] = wordBuffer1[j];
+                                    if (isalpha(temp[tempCount]))
+                                        temp[tempCount] = tolower(temp[tempCount]);
                                     tempCount++;
                                 }
                             }
                             temp[tempCount] = '\0';
                             DSString wordL1(temp);
 
-                            DSString indexL1(wordL1.substring(0, 1));
+                            char indexBuffer[2];
+                            indexBuffer[0] = wordL1[0];
+                            indexBuffer[0] = toupper(indexBuffer[0]);
+                            indexBuffer[1] = '\0';
+
+
+                            DSString indexL1(indexBuffer);
+                            //DSString indexL1(wordL1.substring(0, 1));
+
+
 
                             //word1[countW] = '\0';
-                            cout << wordL1 << " : " << pageNumObj << endl;
+                            cout << wordL1 << " : " << pageNumObj << " : " << indexL1 << endl;
                             //memset(word1, 0, strlen(char1));
                             //obj1(word1, pageNumObj)
                             countW = 0;
@@ -106,18 +117,28 @@ void Indexer::readInFile(char *input) {
                                     for (int j = 0; j < wordBuffer2.getLength(); j ++){
                                         if((wordBuffer2[j] != '[') && wordBuffer2[j] != ']'){
                                             temp[tempCount] = wordBuffer2[j];
+                                            if (isalpha(temp[tempCount]))
+                                                temp[tempCount] = tolower(temp[tempCount]);
                                             tempCount++;
                                         }
                                     }
                                     temp[tempCount] = '\0';
                                     DSString wordL2(temp);
-                                    DSString indexL1(wordL2.substring(0, 1));
+
+                                    char indexBuffer[2];
+                                    indexBuffer[0] = wordL2[0];
+                                    indexBuffer[0] = toupper(indexBuffer[0]);
+                                    indexBuffer[1] = '\0';
+
+
+                                    DSString indexL2(indexBuffer);
+                                    //DSString indexL1(wordL2.substring(0, 1));
 
 
                                     //countN++;
                                     //DSString wordL2(inputString.substring(startL2, countN));
                                     //nested1[countN] = '\0';
-                                    cout << wordL2 << " : " << pageNumObj << endl;
+                                    cout << wordL2 << " : " << pageNumObj << " : " << indexL2 << endl;
                                     //memset(nested1, 0, strlen(char1));
                                     countN = 0;
                                     countW++;
