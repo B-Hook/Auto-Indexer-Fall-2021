@@ -14,8 +14,6 @@ void Indexer::readInFile(char *input) {
     map<DSString, DSVector<DSString>> pageNumMap;
     int countW = 0;
     int countN = 0;
-    //char char1[85];
-    //char pageNum[85];
     DSString pageNumObj;
     DSString pageNumBuffer;
     DSVector<DSString> pageNumV;
@@ -30,7 +28,6 @@ void Indexer::readInFile(char *input) {
     }
 
     for (int i = 0; i < inputString.getLength(); i++){
-        //inFile.getline(char1, 85, '\n');
         if (inputString[i] == '<') {
             i++;
             int start = i;
@@ -50,16 +47,12 @@ void Indexer::readInFile(char *input) {
             for (; i < inputString.getLength(); i++){
 
                 if (inputString[i] == '['){
-                    //char word1[85];
                     int startL1 = i;
                     countW++;
-                    //DSString word1;
                     i++;
                     for (;i < inputString.getLength(); i++){
                         if ((inputString[i] != '[') && (inputString[i] != ']')){
-                            //word1[countW] = [i];
                             countW++;
-                            //i++;
                         }
 
                         else if (inputString[i] == ']'){
@@ -77,54 +70,9 @@ void Indexer::readInFile(char *input) {
                             }
                             temp[tempCount] = '\0';
                             DSString wordL1(temp);
-
-                            /*char indexBuffer[2];
-                            indexBuffer[0] = wordL1[0];
-                            indexBuffer[0] = toupper(indexBuffer[0]);
-                            indexBuffer[1] = '\0';*/
-
-
-                            //DSString indexL1(indexBuffer);
                             DSString indexL1(wordL1.substring(0, 1));
-
-
                             Word completeIndex (wordL1, pageNumObj, indexL1);
-
-                            /*for (int j = 0; j < allWords.getSize(); j++){
-                                if((allWords.at(j).getIndexedWord() == wordL1) &&
-                                    (allWords.at(j).getPageNum() == pageNumObj)){
-
-                                }
-                            }*/
-
                             allWords.push_back(completeIndex);
-                            /*
-                            if (indexMap.count(indexL1) == 0) {
-                                DSVector <DSString> newWord;
-                                newWord.push_back(wordL1);
-                                indexMap.emplace(indexL1, newWord);
-                            }
-                            else {
-                                indexMap.at(indexL1).push_back(wordL1);
-                            }
-                            DSString pageNumB(pageNumObj);
-
-                            if (wordsMap.count(wordL1) == 0) {
-                                DSVector <DSString> newPageNum;
-                                newPageNum.push_back(pageNumObj);
-                                wordsMap.emplace(wordL1, newPageNum);
-                            }
-                            //else if (wordsMap)
-                            else{
-                                int check5 = 0;
-                                for (int j = 0; j < wordsMap.at(wordL1).getSize(); j++){
-                                    if (wordsMap.at(wordL1).at(j) == pageNumObj)
-                                        check5 = 1;
-                                }
-                                if (check5 == 0)
-                                    wordsMap.at(wordL1).push_back(pageNumObj);
-                            }
-                            */
                             int check0 = 0;
                             for (int j = 0; j < indexCategories.getSize(); j++){
                                 if (indexL1 == indexCategories.at(j))
@@ -144,32 +92,22 @@ void Indexer::readInFile(char *input) {
                                 words.push_back(wordL1);
                                 words.sort();
                             }
-                            //word1[countW] = '\0';
                             cout << wordL1 << " : " << pageNumObj << " : " << indexL1 << endl;
-                            //memset(word1, 0, strlen(char1));
-                            //obj1(word1, pageNumObj)
                             countW = 0;
-                            //i++;
                             check = 1;
                             break;
                         }
                         else if (inputString[i] == '['){
-                            //char nested1[85];
                             int startL2 = i;
                             countW++;
                             countN++;
                             i++;
                             for (; i < inputString.getLength(); i++){
                                 if(inputString[i] != ']'){
-                                    //nested1[countN] = char1[i];
-                                    //word1[countW] = char1[i];
                                     countN++;
                                     countW++;
-                                    //i++;
-                                    //j++;
                                 }
                                 else if (inputString[i] == ']'){
-                                    //obj1(nested1, pageNumObj)
                                     countN++;
                                     DSString wordBuffer2(inputString.substring(startL2, countN));
                                     char temp[wordBuffer2.getLength()];
@@ -190,8 +128,6 @@ void Indexer::readInFile(char *input) {
                                     indexBuffer[0] = toupper(indexBuffer[0]);
                                     indexBuffer[1] = '\0';
 
-
-                                    //DSString indexL2(indexBuffer);
                                     DSString indexL2(wordL2.substring(0, 1));
 
                                     Word completeIndex (wordL2, pageNumObj, indexL2);
@@ -216,17 +152,9 @@ void Indexer::readInFile(char *input) {
                                         words.push_back(wordL2);
                                         words.sort();
                                     }
-
-
-                                    //countN++;
-                                    //DSString wordL2(inputString.substring(startL2, countN));
-                                    //nested1[countN] = '\0';
                                     cout << wordL2 << " : " << pageNumObj << " : " << indexL2 << endl;
-                                    //memset(nested1, 0, strlen(char1));
                                     countN = 0;
                                     countW++;
-                                    //i++;
-                                    //j++;
                                     break;
                                 }
 
@@ -239,7 +167,6 @@ void Indexer::readInFile(char *input) {
                 }
                 if (check == 1)
                     break;
-
             }
 
 
@@ -265,8 +192,13 @@ void Indexer::readInFile(char *input) {
         int count0 = 0;
         for (int j = 0; j < words.getSize(); j++){
             if (indexCategories.at(i)[0] == words.at(j)[0]){
-                if (count0 == 0)
-                    cout << "[" << indexCategories.at(i) << "]" << endl;
+                if (count0 == 0) {
+                    char indexUpperCase[2];
+                    indexUpperCase[0] = toupper(indexCategories.at(i)[0]);
+                    indexUpperCase[1] = '\0';
+                    DSString newindexCategory (indexUpperCase);
+                    cout << "[" << newindexCategory << "]" << endl;
+                }
                 count0++;
                 DSVector <DSString> pageNumV;
                 cout << words.at(j) << ": ";
@@ -293,32 +225,4 @@ void Indexer::readInFile(char *input) {
             }
         }
     }
-
-    /*for (int i = 0; i < allWords.getSize(); i++){
-        //for (int j = 0; j < allWords.getSize(); j++){
-        int j = 0;
-        while (allWords.at(j) != nullptr)
-
-            if (allWords.at(i).getIndex() > allWords.at(j).getIndex())
-                break;
-            else if (allWords.at(i).getIndex() == allWords.at(j).getIndex()){
-
-                DSString newPageNum = allWords.at(i).getPageNum();
-
-                if (newPageNum > allWords.at(j).getPageNum()){
-                    newPageNum = newPageNum + ", " + ;
-                }
-
-
-
-                Word newWord;
-            }
-        }
-
-
-
-    }*/
-
-
-
 }
