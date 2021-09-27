@@ -81,18 +81,18 @@ void Indexer::readInFile(char *input) {
                             indexBuffer[1] = '\0';
 
 
-                            DSString indexL1(indexBuffer);
-                            //DSString indexL1(wordL1.substring(0, 1));
+                            //DSString indexL1(indexBuffer);
+                            DSString indexL1(wordL1.substring(0, 1));
 
                             Word completeIndex (wordL1, pageNumObj, indexL1);
 
                             allWords.push_back(completeIndex);
-                            int check = 0;
+                            int check0 = 0;
                             for (int j = 0; j < indexCategories.getSize(); j++){
                                 if (indexL1 == indexCategories.at(j))
-                                    check = 1;
+                                    check0 = 1;
                             }
-                            if (check == 0) {
+                            if (check0 == 0) {
                                 indexCategories.push_back(indexL1);
                                 indexCategories.sort();
                             }
@@ -153,18 +153,18 @@ void Indexer::readInFile(char *input) {
                                     indexBuffer[1] = '\0';
 
 
-                                    DSString indexL2(indexBuffer);
-                                    //DSString indexL1(wordL2.substring(0, 1));
+                                    //DSString indexL2(indexBuffer);
+                                    DSString indexL2(wordL2.substring(0, 1));
 
                                     Word completeIndex (wordL2, pageNumObj, indexL2);
 
                                     allWords.push_back(completeIndex);
-                                    int check = 0;
+                                    int check0 = 0;
                                     for (int j = 0; j < indexCategories.getSize(); j++){
                                         if (indexL2 == indexCategories.at(j))
-                                            check = 1;
+                                            check0 = 1;
                                     }
-                                    if (check == 0) {
+                                    if (check0 == 0) {
                                         indexCategories.push_back(indexL2);
                                         indexCategories.sort();
                                     }
@@ -218,6 +218,31 @@ void Indexer::readInFile(char *input) {
 
     for (int i = 0; i < words.getSize(); i++){
         cout << words.at(i) << endl;
+    }
+
+    cout << endl;
+    cout << endl;
+
+    for (int i = 0; i < indexCategories.getSize(); i++){
+        int count0 = 0;
+        for (int j = 0; j < words.getSize(); j++){
+            if (indexCategories.at(i)[0] == words.at(j)[0]){
+                if (count0 == 0)
+                    cout << "[" << indexCategories.at(i) << "]" << endl;
+                count0++;
+                cout << words.at(j) << ": ";
+                int count = 0;
+                for (int k = 0; k < allWords.getSize(); k++){
+                    if (words.at(j) == allWords.at(k).getIndexedWord()){
+                        if (count != 0)
+                            cout << ", ";
+                        cout << allWords.at(k).getPageNum();
+                        count++;
+                    }
+                }
+                cout << endl;
+            }
+        }
     }
 
     /*for (int i = 0; i < allWords.getSize(); i++){
