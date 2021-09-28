@@ -21,7 +21,5 @@ int main(int argc, char** argv) {
     else {
         Indexer(argv[1], argv[2]);
     }
-
-
     return 0;
 }
