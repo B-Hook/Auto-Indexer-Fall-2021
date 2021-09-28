@@ -4,6 +4,8 @@
 
 #include "PrintToFile.h"
 
+//TODO: Print page numbers in order
+
 PrintToFile::PrintToFile(char * outputFile, DSVector<Word> &wordObjs, DSVector<DSString> &indexCategories
                          , DSVector<DSString> &words) {
 
@@ -56,17 +58,17 @@ PrintToFile::PrintToFile(char * outputFile, DSVector<Word> &wordObjs, DSVector<D
                             if (count != 0)
                                 output << ", ";
 
-                            if (wordObjs.at(k).getPageNum().getLength() > 30){
+                            if (wordObjs.at(k).getPageNum().getLength() > 15){
                                 int start = 0;
                                 while (start < wordObjs.at(k).getPageNum().getLength()) {
                                     DSString newStr;
-                                    if ((start + 30) < wordObjs.at(k).getPageNum().getLength()) {
-                                        newStr = wordObjs.at(k).getPageNum().substring(start, 30);
+                                    if ((start + 15) < wordObjs.at(k).getPageNum().getLength()) {
+                                        newStr = wordObjs.at(k).getPageNum().substring(start, 15);
                                     } else {
                                         newStr = wordObjs.at(k).getPageNum().substring
                                                 (start, wordObjs.at(k).getPageNum().getLength() - start);
                                     }
-                                    start += 30;
+                                    start += 15;
                                     output << newStr;
                                     if (start < wordObjs.at(k).getPageNum().getLength())
                                         output << "\n    ";

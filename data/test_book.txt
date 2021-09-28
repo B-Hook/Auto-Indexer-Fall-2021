@@ -1,4 +1,6 @@
 <3>
+//I just kept entering in different stuff into this single text file as I found that easiest
+//As such this is the only file I used to test
 Preface:
 
 [Advanced [Data Struc
