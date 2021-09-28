@@ -1,7 +1,12 @@
 <3>
 Preface:
 
-[Advanced [Data Structures] and [Algorithm Implementation]] is a new exciting
+[Advanced [Data Struc
+ture
+s] and [Algorithm Imp
+lementatio
+n]
+] is a new exciting
 text from Mustang Publishers aimed at upper division
 undergraduate courses or introductory graduate courses.
 <4>
@@ -21,9 +26,11 @@ In a [B+ Tree], the leaf [B+ Tree]nodes are connected as a [doubly linked list].
 <-1924812112>
 
 // Woah! -1924812112 doesn't come after 1!!! This line isn't a [comment] either by the way
-Well whatever, it doesn't matter [ig]...
+Well whatever, it doesn't matter [i
+g]...
 
-Wait... what if I did something like [[this]]? I feel like this is kinda illegal...
+Wait... what if I did something like [[thi
+s]]? I feel like this is kinda illegal...
 By the way this *should* read in "this" twice, but only have one page number for both!
 Hopefully your program did that [:)]
 
@@ -40,8 +47,12 @@ Btw, [] shouldn't actually index anything (except : page numbers)
 
 <121302316283121302316283121302316283121302316283121302316283121302316283121302316283>
 
-SERIOUSLY?!? [WE HAVE ALREADY BEEN THROUGH THIS!] The person writing this file isn't very smart...
-Also, that last thing should've been converted to lowercase... [:)]
+SERIOUSLY?!? [WE HAVE ALRE
+ADY BEEN THROUG
+H THIS!] The pers
+on writing this file isn't very smart...
+Also, that last thing should've been converted to lowercase... [:
+)]
 
 <3>
 
