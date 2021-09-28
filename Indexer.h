@@ -7,8 +7,6 @@
 #include <fstream>
 #include "DSString.h"
 #include "DSVector.h"
-//#include <iomanip>
-#include <map>
 #include "StoredIndex.h"
 #include "Word.h"
 using namespace std;
@@ -18,6 +16,13 @@ class Indexer {
 public:
     Indexer(char*, char*);
     void readInFile (char*);
+    void endWord(int&, int&, DSString&);
+
+private:
+    DSVector<Word> allWords;
+    DSVector<DSString> indexCategories;
+    DSVector<DSString> words;
+    DSString pageNumObj;
 };
 
 
