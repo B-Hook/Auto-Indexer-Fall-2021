@@ -14,7 +14,6 @@ class Word {
 public:
     Word ();
     Word (const DSString&, const DSString&, const DSString&);
-    //void addPageNum (const DSString&);
     DSString getIndexedWord ();
     DSString getPageNum ();
     DSString getIndex ();

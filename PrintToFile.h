@@ -4,6 +4,7 @@
 
 #ifndef INC_21F_PA02_PRINTTOFILE_H
 #define INC_21F_PA02_PRINTTOFILE_H
+#include <fstream>
 #include "DSString.h"
 #include "DSVector.h"
 #include "Word.h"
@@ -13,7 +14,6 @@ using namespace std;
 class PrintToFile {
 public:
     PrintToFile(char*, DSVector<Word>&, DSVector<DSString>&, DSVector<DSString>&);
-
 };
 
 

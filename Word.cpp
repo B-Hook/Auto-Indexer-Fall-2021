@@ -14,11 +14,6 @@ Word::Word(const DSString& indexedWord, const DSString& pageNum, const DSString&
     this->index = index;
 }
 
-/*void Word::addPageNum(const DSString& num){
-    this->pageNum.push_back(num);
-    this->pageNum.sort();
-}*/
-
 DSString Word::getIndexedWord() {
     return this->indexedWord;
 }
@@ -28,5 +23,5 @@ DSString Word::getPageNum() {
 }
 
 DSString Word::getIndex() {
-    return DSString();
+    return this->index;
 }
