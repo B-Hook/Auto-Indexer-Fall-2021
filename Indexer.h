@@ -7,6 +7,7 @@
 #include <fstream>
 #include "DSString.h"
 #include "DSVector.h"
+#include "PrintToFile.h"
 #include "StoredIndex.h"
 #include "Word.h"
 using namespace std;
@@ -19,7 +20,7 @@ public:
     void endWord(int&, int&, DSString&);
 
 private:
-    DSVector<Word> allWords;
+    DSVector<Word> wordObjs;
     DSVector<DSString> indexCategories;
     DSVector<DSString> words;
     DSString pageNumObj;

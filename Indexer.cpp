@@ -4,6 +4,7 @@
 #include "Indexer.h"
 Indexer::Indexer(char *inputFile, char *outputFile) {
     readInFile(inputFile);
+    PrintToFile print(outputFile, wordObjs, indexCategories, words);
 }
 void Indexer::readInFile(char *input) {
     int countW = 0;
@@ -44,7 +45,7 @@ void Indexer::readInFile(char *input) {
                         }
                         else if (inputString[i] == ']'){
                             endWord(countW, startL1, inputString);
-                            check = 1; 
+                            check = 1;
                             break;
                         }
                         else if (inputString[i] == '['){
@@ -75,7 +76,7 @@ void Indexer::readInFile(char *input) {
     //allVectors.push_back(words);
     //allVectors.push_back(allWords);
     //TODO: Make print object with all the vectors
-    for (int i = 0; i < indexCategories.getSize(); i++){
+    /*for (int i = 0; i < indexCategories.getSize(); i++){
         int count0 = 0;
         for (int j = 0; j < words.getSize(); j++){
             if (indexCategories.at(i)[0] == words.at(j)[0]){
@@ -83,18 +84,18 @@ void Indexer::readInFile(char *input) {
                     char indexUpperCase[2];
                     indexUpperCase[0] = toupper(indexCategories.at(i)[0]);
                     indexUpperCase[1] = '\0';
-                    DSString newindexCategory (indexUpperCase);
-                    cout << "[" << newindexCategory << "]" << endl;
+                    DSString newIndexCategory (indexUpperCase);
+                    cout << "[" << newIndexCategory << "]" << endl;
                 }
                 count0++;
                 DSVector <DSString> pageNumV;
                 cout << words.at(j) << ": ";
                 int count = 0;
                 int pageRepeat = 0;
-                for (int k = 0; k < allWords.getSize(); k++){
-                    if (words.at(j) == allWords.at(k).getIndexedWord()){
+                for (int k = 0; k < wordObjs.getSize(); k++){
+                    if (words.at(j) == wordObjs.at(k).getIndexedWord()){
                         for (int l = 0; l < pageNumV.getSize(); l++){
-                            if (pageNumV.at(l) == allWords.at(k).getPageNum()) {
+                            if (pageNumV.at(l) == wordObjs.at(k).getPageNum()) {
                                 pageRepeat = 1;
                                 break;
                             }
@@ -102,8 +103,8 @@ void Indexer::readInFile(char *input) {
                         if (pageRepeat == 0) {
                             if (count != 0)
                                 cout << ", ";
-                            cout << allWords.at(k).getPageNum();
-                            pageNumV.push_back(allWords.at(k).getPageNum());
+                            cout << wordObjs.at(k).getPageNum();
+                            pageNumV.push_back(wordObjs.at(k).getPageNum());
                             count++;
                         }
                     }
@@ -111,7 +112,7 @@ void Indexer::readInFile(char *input) {
                 cout << endl;
             }
         }
-    }
+    }*/
 }
 
 void Indexer::endWord(int &count, int &start, DSString &inputString) {
@@ -131,7 +132,7 @@ void Indexer::endWord(int &count, int &start, DSString &inputString) {
     DSString wordL1(temp);
     DSString indexL1(wordL1.substring(0, 1));
     Word completeIndex (wordL1, pageNumObj, indexL1);
-    allWords.push_back(completeIndex);
+    wordObjs.push_back(completeIndex);
     int check0 = 0;
     for (int j = 0; j < indexCategories.getSize(); j++){
         if (indexL1 == indexCategories.at(j))
