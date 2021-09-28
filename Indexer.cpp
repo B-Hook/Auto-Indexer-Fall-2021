@@ -6,16 +6,16 @@ Indexer::Indexer(char *inputFile, char *outputFile) {
     readInFile(inputFile);
     PrintToFile print(outputFile, wordObjs, indexCategories, words);
 }
-void Indexer::readInFile(char *input) {
+void Indexer::readInFile(char *inFile) {
     int countW = 0;
     int countN = 0;
-    ifstream inFile(input);
+    ifstream input(inFile);
     char temp[200];
-    inFile.getline(temp, 200, '\n');
+    input.getline(temp, 200, '\n');
     DSString inputString (temp);
-    while (!inFile.eof()) {
+    while (!input.eof()) {
         char buffer[200];
-        inFile.getline(buffer, 200, '\n');
+        input.getline(buffer, 200, '\n');
         buffer[strlen(buffer)] = '\0';
         inputString = inputString + buffer;
     }
@@ -72,6 +72,7 @@ void Indexer::readInFile(char *input) {
             }
         }
     }
+    input.close();
 }
 
 void Indexer::endWord(int &count, int &start, DSString &inputString) {

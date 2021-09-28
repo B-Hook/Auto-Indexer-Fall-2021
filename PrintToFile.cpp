@@ -84,5 +84,5 @@ PrintToFile::PrintToFile(char * outputFile, DSVector<Word> &wordObjs, DSVector<D
             }
         }
     }
-
+    output.close();
 }
