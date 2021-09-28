@@ -16,10 +16,10 @@
 
 int main(int argc, char** argv) {
     if(argc == 1) {
-        runCatchTests();
+        runCatchTests(); // Run catch tests
     }
     else {
-        Indexer(argv[1], argv[2]);
+        Indexer(argv[1], argv[2]); // Calling Indexer object
     }
     return 0;
 }
