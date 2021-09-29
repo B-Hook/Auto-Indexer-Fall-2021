@@ -7,7 +7,7 @@
 Word::Word() {
 
 }
-
+//Stores the word, page# and index into the object
 Word::Word(const DSString& indexedWord, const DSString& pageNum, const DSString& index) {
     this->indexedWord = indexedWord;
     this->pageNum = pageNum;

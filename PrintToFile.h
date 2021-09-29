@@ -13,6 +13,7 @@ using namespace std;
 
 class PrintToFile {
 public:
+    // Prints file
     PrintToFile(char*, DSVector<Word>&, DSVector<DSString>&, DSVector<DSString>&);
 };
 

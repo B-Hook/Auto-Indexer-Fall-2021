@@ -14,15 +14,18 @@ using namespace std;
 class Indexer {
 
 public:
+    // Constructor
     Indexer(char*, char*);
+    // Reading in the file
     void readInFile (char*);
+    // Called when a bracketed word ends
     void endWord(int&, int&, DSString&);
-
+// Private data memebers
 private:
-    DSVector<Word> wordObjs;
-    DSVector<DSString> indexCategories;
-    DSVector<DSString> words;
-    DSString pageNumObj;
+    DSVector<Word> wordObjs; // Contains all the read in Word that contains the word, page# and index
+    DSVector<DSString> indexCategories; // Contains all indexes
+    DSVector<DSString> words; // Contains all words
+    DSString pageNumObj; // Contains all page numbers
 };
 
 

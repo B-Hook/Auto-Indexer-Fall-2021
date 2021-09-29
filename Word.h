@@ -12,7 +12,8 @@
 class Word {
 
 public:
-    Word ();
+    Word (); // Word constructor, needed to insert into the vector
+    // Overload constructor word/page#/index
     Word (const DSString&, const DSString&, const DSString&);
     DSString getIndexedWord ();
     DSString getPageNum ();
